@@ -1,26 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <link rel="stylesheet" href="style.css" />
-    <title>Google Books API</title>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="style.css">
+  <title>Document</title>
+</head>
+<!-- <script type="text/javascript" src="https://www.google.com/books/jsapi.js"></script> -->
+   
   </head>
   <body>
-    <div class="search-books">
-      <input type="text" id="input_field" placeholder="Search books" />
-      <button class="btn" id="input_btn">Search</button>
+
+    <div id="search" class="search-style">
+      <form id="book-form">
+        <div class="input-field">
+          <input type="search" id="search-books">
+          <label for="search">Search Books</label>
+        </div>
+        <button type="button" class="btn" id="search-button">Search</button>
+      </form>
     </div>
-    <div class="book-cards">
-      <div id="image"></div>
-      <div id="title"></div>
-      <div id="author"></div>
-      <div id="published"></div>
-    </div>
-    <img src="" alt="" />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="app.js"></script>
-    <!-- <script src="https://www.googleapis.com/books/v1/volumes?q=${DOM.input}:keyes&key=AIzaSyCoB6R2r7zWFZx_C50_OpL2lTvO0F2oMdI&callback=handleResponse"></script> -->
+
+    <div id="result"></div>
+    
+
+
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+      <script src="app.js"></script>
   </body>
 </html>

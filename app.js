@@ -1,52 +1,88 @@
-function bookSearch() {
-  var search = document.getElementById("input_field").value;
-  document.getElementById("title").innerHTML = "";
-  document.getElementById("author").innerHTML = "";
-  document.getElementById("image").innerHTML = "";
-  console.log(search);
+document.addEventListener(
+  "DOMContentLoaded",
+  function() {
+    // e.preventDefault();
+    const DOM = {
+      // Getting the DOM elements inside a Var
+      myForm: document.getElementById("book-form"),
+      search: document.getElementById("search-books"),
+      result: document.getElementById("result"),
+      button: document.getElementById("search-button")
+    };
 
-  $.ajax({
-    url: "https://www.googleapis.com/books/v1/volumes?q=" + search,
-    dataType: "json",
+    // Function that gets the results of the books
+    function getResults() {
+      // Value of the input
+      var searchValue = DOM.search.value;
 
-    success: function(data) {
-      for (i = 0; i < data.items.length; i++) {
-        title.innerHTML += "<h2>" + data.items[i].volumeInfo.title + "</h2>";
-        author.innerHTML += "<p>" + data.items[i].volumeInfo.authors + "</p>";
-        Image.innerHTML +=
-          '<img src= "' +
-          data.items[i].volumeInfo.imageLinks.smallThumbnail +
-          '" alt="#">';
+      if (searchValue == "") {
+        result.innerHTML = "Please put something in";
+      } else {
+        // 1. Create a new XMLHttpRequest object
+        let xhr = new XMLHttpRequest();
+
+        // 2. Configure it: GET-request for the URL /article/.../hello.txt
+        xhr.open(
+          "GET",
+          "https://www.googleapis.com/books/v1/volumes?q=" + searchValue
+        );
+
+        // 3. Send the request over the network
+        xhr.send();
+
+        // 4. This will be called after the response is received
+        xhr.onload = function(response) {
+          let data = JSON.parse(this.response);
+          for (var i = 0; i < 11; i++) {
+            //Creates the elements for the Book-card
+            var divCard = document.createElement("div");
+            var titleCard = document.createElement("h2");
+            var authorCard = document.createElement("p");
+
+            // Retreives the data from the API request
+            var title = data.items[i].volumeInfo.title;
+            var author = data.items[i].volumeInfo.authors;
+
+            // Changes the elements innerHTML into the data that was
+            // received from the API request
+            titleCard.innerHTML = `${title}`;
+            authorCard.innerHTML = `${author}`;
+
+            // Appends the Title, Author, Image to the card.
+            divCard.appendChild(titleCard);
+            divCard.appendChild(authorCard);
+
+            document.body.appendChild(divCard);
+          }
+        };
+
+        // var httpRequest = new XMLHttpRequest();
+        // httpRequest.onload = function(response) {
+        //   for (var i = 0; i < response.items.length; i++) {
+        //     console.log(response);
+        //   }
+
+        //   // // Process our return data
+        //   // if (httpRequest.status >= 200 && httpRequest.status < 300) {
+        //   //   // What do when the request is successful
+
+        //   //   console.log("success!", httpRequest);
+        //   // } else {
+        //   //   // What do when the request fails
+        //   //   console.log("The request failed!");
+        //   // }
+        // };
+
+        // httpRequest.open(
+        //   "GET",
+        //   "https://www.googleapis.com/books/v1/volumes?q=" + searchValue
+        // );
+        // httpRequest.send();
       }
-    },
-    type: "GET"
-  });
-}
+    }
 
-document.getElementById("input_btn").addEventListener("click", bookSearch);
-
-// const DOM = {
-//   input: document.getElementById("input-field"),
-//   button: document.getElementById("input-btn"),
-//   title: document.getElementById("title"),
-//   tester: document.getElementById("tester")
-// };
-
-// function getValue() {
-//   var inputValue = DOM.input.value;
-
-//   return (DOM.tester.innerHTML = inputValue);
-// }
-
-// DOM.button.addEventListener("click", getValue);
-
-// const endpoint =
-//   "https://www.googleapis.com/books/v1/volumes?q=${DOM.input}:keyes&key=AIzaSyCoB6R2r7zWFZx_C50_OpL2lTvO0F2oMdI&callback=handleResponse";
-
-// function handleResponse(response) {
-//   for (var i = 0; i < response.items.length; i++) {
-//     var item = response.items[i];
-//     // in production code, item.text should have the HTML entities escaped.
-//     DOM.title.innerHTML += "<br>" + item.volumeInfo.title;
-//   }
-// }
+    // When clicked on button, will fire the getResults function
+    DOM.button.addEventListener("click", getResults);
+  },
+  false
+);
