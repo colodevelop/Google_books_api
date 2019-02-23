@@ -35,16 +35,18 @@ document.addEventListener(
           let data = JSON.parse(this.response);
           for (var i = 0; i < 11; i++) {
             //Creates the elements for the Book-card
+
             var divCard = document.createElement("div");
+            var imageCard = document.createElement("img");
+            var textCard = document.createElement("div");
             var titleCard = document.createElement("h2");
             var authorCard = document.createElement("p");
-            var imageCard = document.createElement("img");
-            var urlCard = document.createElement("button");
+            var urlCard = document.createElement("a");
 
             // Retreives the data from the API request
+            imageCard.src = data.items[i].volumeInfo.imageLinks.thumbnail;
             var title = data.items[i].volumeInfo.title;
             var author = data.items[i].volumeInfo.authors;
-            imageCard.src = data.items[i].volumeInfo.imageLinks.thumbnail;
             var url = data.items[i].volumeInfo.imageLinks.infoLink;
 
             // Changes the elements innerHTML into the data that was
@@ -52,39 +54,22 @@ document.addEventListener(
             titleCard.innerHTML = `${title}`;
             authorCard.innerHTML = `Written by: ${author}`;
             imageCard.innerHTML = `${imageCard.src}`;
-            urlCard.innerHTML = `${urlCard}`;
+            urlCard.innerHTML = `See this book`;
+
+            //add CSS classes on the DOM elements.
+            divCard.classList.add("book-card");
+            textCard.classList.add("card-text");
+            urlCard.classList.add("btn");
 
             // Appends the Title, Author, Image to the card.
-            divCard.appendChild(titleCard);
-            divCard.appendChild(authorCard);
+            textCard.appendChild(titleCard);
+            textCard.appendChild(authorCard);
             divCard.appendChild(imageCard);
+            divCard.appendChild(textCard);
 
             document.body.appendChild(divCard);
           }
         };
-
-        // var httpRequest = new XMLHttpRequest();
-        // httpRequest.onload = function(response) {
-        //   for (var i = 0; i < response.items.length; i++) {
-        //     console.log(response);
-        //   }
-
-        //   // // Process our return data
-        //   // if (httpRequest.status >= 200 && httpRequest.status < 300) {
-        //   //   // What do when the request is successful
-
-        //   //   console.log("success!", httpRequest);
-        //   // } else {
-        //   //   // What do when the request fails
-        //   //   console.log("The request failed!");
-        //   // }
-        // };
-
-        // httpRequest.open(
-        //   "GET",
-        //   "https://www.googleapis.com/books/v1/volumes?q=" + searchValue
-        // );
-        // httpRequest.send();
       }
     }
 
