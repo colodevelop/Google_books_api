@@ -57,7 +57,6 @@ document.addEventListener(
             var title = data.items[i].volumeInfo.title;
             var author = data.items[i].volumeInfo.authors;
             var url = data.items[i].volumeInfo.infoLink;
-            console.log(author);
 
             // Changes the elements innerHTML into the data that was
             // received from the API request
