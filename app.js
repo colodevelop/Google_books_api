@@ -34,6 +34,8 @@ document.addEventListener(
         xhr.onload = function(response) {
           let data = JSON.parse(this.response);
           for (var i = 0; i < 11; i++) {
+            // DOM element of ALL books.
+            var allBooks = document.querySelector(".all-books");
             //Creates the elements for the Book-card
 
             var divCard = document.createElement("div");
@@ -47,14 +49,16 @@ document.addEventListener(
             imageCard.src = data.items[i].volumeInfo.imageLinks.thumbnail;
             var title = data.items[i].volumeInfo.title;
             var author = data.items[i].volumeInfo.authors;
-            var url = data.items[i].volumeInfo.imageLinks.infoLink;
+            var url = data.items[i].volumeInfo.imageLinks.buyLink;
+            console.log(author);
 
             // Changes the elements innerHTML into the data that was
             // received from the API request
             titleCard.innerHTML = `${title}`;
             authorCard.innerHTML = `Written by: ${author}`;
             imageCard.innerHTML = `${imageCard.src}`;
-            urlCard.innerHTML = `See this book`;
+            urlCard.innerHTML = `Search`;
+            urlCard.setAttribute("href", url);
 
             //add CSS classes on the DOM elements.
             divCard.classList.add("book-card");
@@ -64,10 +68,11 @@ document.addEventListener(
             // Appends the Title, Author, Image to the card.
             textCard.appendChild(titleCard);
             textCard.appendChild(authorCard);
+            textCard.appendChild(urlCard);
             divCard.appendChild(imageCard);
             divCard.appendChild(textCard);
 
-            document.body.appendChild(divCard);
+            allBooks.appendChild(divCard);
           }
         };
       }

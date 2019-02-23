@@ -28,10 +28,15 @@ a {
   text-decoration: none;
 }
 
+p {
+  margin: 2rem 0;
+  color: gray;
+}
+
 .book-card {
   display: flex;
   padding: 1rem;
-  max-width: 50%;
+  max-width: 100%;
   background: white;
   box-shadow: 1px 1px 6px 0px rgba(0, 0, 0, 0.3);
   margin: 1rem;
@@ -49,12 +54,13 @@ a {
 .all-books {
   max-width: 1400px;
   margin: auto;
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr)
 }
 
 @media (max-width: 850px) {
   .all-books {
-    flex-direction: column;
+    grid-template-columns: 1fr;
   }
   .book-card {
     max-width: 100%;
