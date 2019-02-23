@@ -8,10 +8,19 @@
     <title>Google Books API</title>
   </head>
   <body>
-    <input type="text" class="input-field" placeholder="Search books" />
-    <button class="btn">Search</button>
-
+    <div class="search-books">
+      <input type="text" id="input_field" placeholder="Search books" />
+      <button class="btn" id="input_btn">Search</button>
+    </div>
+    <div class="book-cards">
+      <div id="image"></div>
+      <div id="title"></div>
+      <div id="author"></div>
+      <div id="published"></div>
+    </div>
+    <img src="" alt="" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="app.js"></script>
-    <script src="https://www.googleapis.com/books/v1/volumes?q=flowers+inauthor:keyes&key=AIzaSyCoB6R2r7zWFZx_C50_OpL2lTvO0F2oMdI&callback=handleResponse"></script>
+    <!-- <script src="https://www.googleapis.com/books/v1/volumes?q=${DOM.input}:keyes&key=AIzaSyCoB6R2r7zWFZx_C50_OpL2lTvO0F2oMdI&callback=handleResponse"></script> -->
   </body>
 </html>
