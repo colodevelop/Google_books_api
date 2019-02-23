@@ -3,31 +3,38 @@ document.addEventListener(
   function() {
     // e.preventDefault();
     const DOM = {
-      // Getting the DOM elements inside a Var
+      // Getting the DOM elements
       myForm: document.getElementById("book-form"),
       search: document.getElementById("search-books"),
       result: document.getElementById("result"),
-      button: document.getElementById("search-button")
+      button: document.getElementById("search-button"),
+      message: document.querySelector(".nothing-message")
     };
 
     // Function that gets the results of the books
     function getResults() {
+      // hides the standard message
+      DOM.message.style.visibility = "hidden";
+
       // Value of the input
       var searchValue = DOM.search.value;
 
       if (searchValue == "") {
-        result.innerHTML = "Please put something in";
+        DOM.result.innerHTML = "Please put something in the search! 😃";
       } else {
+        //deletes the result message
+        DOM.result.style.visibility = "hidden";
+
         // 1. Create a new XMLHttpRequest object
         let xhr = new XMLHttpRequest();
 
-        // 2. Configure it: GET-request for the URL /article/.../hello.txt
+        // 2. Configure it: GET-request for the URL
         xhr.open(
           "GET",
           `https://www.googleapis.com/books/v1/volumes?q=${searchValue}`
         );
 
-        // 3. Send the request over the network
+        // 3. Send the request
         xhr.send();
 
         // 4. This will be called after the response is received
@@ -49,7 +56,7 @@ document.addEventListener(
             imageCard.src = data.items[i].volumeInfo.imageLinks.thumbnail;
             var title = data.items[i].volumeInfo.title;
             var author = data.items[i].volumeInfo.authors;
-            var url = data.items[i].volumeInfo.imageLinks.buyLink;
+            var url = data.items[i].volumeInfo.infoLink;
             console.log(author);
 
             // Changes the elements innerHTML into the data that was
@@ -57,7 +64,7 @@ document.addEventListener(
             titleCard.innerHTML = `${title}`;
             authorCard.innerHTML = `Written by: ${author}`;
             imageCard.innerHTML = `${imageCard.src}`;
-            urlCard.innerHTML = `Search`;
+            urlCard.innerHTML = `Search the Book`;
             urlCard.setAttribute("href", url);
 
             //add CSS classes on the DOM elements.
@@ -80,6 +87,12 @@ document.addEventListener(
 
     // When clicked on button, will fire the getResults function
     DOM.button.addEventListener("click", getResults);
+
+    window.addEventListener("keyup", function(e) {
+      if (e.keyCode === 13) {
+        getResults();
+      }
+    });
   },
   false
 );

@@ -4,25 +4,34 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link
+  href="https://fonts.googleapis.com/css?family=Roboto"
+  rel="stylesheet"
+/>
   <link rel="stylesheet" href="style.css">
-  <title>Document</title>
+  <title>Google Books</title>
 </head>
 <!-- <script type="text/javascript" src="https://www.google.com/books/jsapi.js"></script> -->
    
   </head>
   <body>
 
+    <h1 class="body-title">BOOK FINDER</h1>
     <div id="search" class="search-style">
       <form id="book-form">
         <div class="input-field">
-          <input type="search" id="search-books">
-          <label for="search">Search Books</label>
+          <input type="search" id="search-books" placeholder="Search by book, title or author">
+          <label for="search"></label>
         </div>
-        <button type="button" class="btn" id="search-button">Search</button>
-      </form>
+      </form> 
+        <button type="button" class="btn-search" id="search-button">Search</button>
+      
     </div>
 
     <div id="result"></div>
+
+    <h2 class="nothing-message"> 😞 Nothing here yet! Try to search for a book!</h2>
+
     
     <div class="all-books">
         <!-- <div class="book-card">

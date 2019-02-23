@@ -1,37 +1,87 @@
 body {
   background: #F2F2F2;
+  font-family: 'Roboto', sans-serif;
 }
 
-#search {
-  width: 300px;
-  height: 150px;
-  margin: auto;
-  margin-top: 20px;
-  padding: 20px;
+/* Utility Classes 
+======================== */
+
+a {
+  text-decoration: none;
 }
+
+h1 {}
+
+p {
+  margin: 2rem 0;
+  color: gray;
+}
+
+/* Buttons
+============================ */
 
 .btn {
   color: white;
+  position: relative;
+  top: 50px;
   background: #15CF89;
   border: none;
-  padding: 0.5rem;
   margin-top: 1rem;
   border-radius: 10px;
-  padding: 0.5rem 2rem;
+  padding: 0.5rem 5rem;
+}
+
+@media only screen and (max-width:1200px) and (min-width: 854px) {
+  .btn {
+    padding: 0.5rem 1rem;
+    position: relative;
+    top: 0;
+  }
 }
 
 .btn:hover {
   opacity: 0.8;
 }
 
-a {
-  text-decoration: none;
+/* Search Bar TOP
+=================================== */
+
+.body-title {
+  text-align: center;
+  font-size: 4rem;
+  opacity: 0.4;
+  margin: 1rem;
 }
 
-p {
-  margin: 2rem 0;
-  color: gray;
+.search-style {
+  display: flex;
+  justify-content: center;
 }
+
+.book-form {
+  padding-bottom: 5rem;
+}
+
+.nothing-message {
+  text-align: center;
+  opacity: 0.5;
+  margin-top: 4rem;
+}
+
+#search-books {
+  width: 40em;
+  padding: .35rem;
+}
+
+#result {
+  text-align: center;
+  font-size: 2rem;
+  opacity: 0.5;
+  margin-top: 4rem;
+}
+
+/* Book cards
+===================================== */
 
 .book-card {
   display: flex;
@@ -39,11 +89,13 @@ p {
   max-width: 100%;
   background: white;
   box-shadow: 1px 1px 6px 0px rgba(0, 0, 0, 0.3);
-  margin: 1rem;
+  margin: 2rem 1rem;
 }
 
 .book-card img {
-  height: 200px;
+  height: 240px;
+  position: relative;
+  bottom: 40px;
   box-shadow: 0 0 4px 1px rgba(0, 0, 0, 0.3);
 }
 
@@ -58,7 +110,7 @@ p {
   grid-template-columns: repeat(2, 1fr)
 }
 
-@media (max-width: 850px) {
+@media (max-width: 855px) {
   .all-books {
     grid-template-columns: 1fr;
   }
