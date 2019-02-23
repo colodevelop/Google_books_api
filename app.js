@@ -24,7 +24,7 @@ document.addEventListener(
         // 2. Configure it: GET-request for the URL /article/.../hello.txt
         xhr.open(
           "GET",
-          "https://www.googleapis.com/books/v1/volumes?q=" + searchValue
+          `https://www.googleapis.com/books/v1/volumes?q=${searchValue}`
         );
 
         // 3. Send the request over the network
@@ -38,19 +38,26 @@ document.addEventListener(
             var divCard = document.createElement("div");
             var titleCard = document.createElement("h2");
             var authorCard = document.createElement("p");
+            var imageCard = document.createElement("img");
+            var urlCard = document.createElement("button");
 
             // Retreives the data from the API request
             var title = data.items[i].volumeInfo.title;
             var author = data.items[i].volumeInfo.authors;
+            imageCard.src = data.items[i].volumeInfo.imageLinks.thumbnail;
+            var url = data.items[i].volumeInfo.imageLinks.infoLink;
 
             // Changes the elements innerHTML into the data that was
             // received from the API request
             titleCard.innerHTML = `${title}`;
-            authorCard.innerHTML = `${author}`;
+            authorCard.innerHTML = `Written by: ${author}`;
+            imageCard.innerHTML = `${imageCard.src}`;
+            urlCard.innerHTML = `${urlCard}`;
 
             // Appends the Title, Author, Image to the card.
             divCard.appendChild(titleCard);
             divCard.appendChild(authorCard);
+            divCard.appendChild(imageCard);
 
             document.body.appendChild(divCard);
           }

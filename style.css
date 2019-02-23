@@ -9,6 +9,9 @@
 .btn {
   position: relative;
   left: 50px;
+  color: red;
+  padding: 0.5rem;
+  margin-top: 1rem;
 }
 
 .search-style {
