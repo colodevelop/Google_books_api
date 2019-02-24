@@ -100,9 +100,10 @@ function refreshBooks() {
 // When clicked on button, will fire the getResults function
 DOM.button.addEventListener("click", getResults);
 
-window.addEventListener("keyup", function(e) {
-  if (e.keyCode === 13) {
+window.addEventListener("keypress", function(event) {
+  if (event.keyCode === 13) {
     getResults();
+    event.preventDefault();
   }
 });
 
