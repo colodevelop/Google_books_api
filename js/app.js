@@ -1,7 +1,6 @@
 document.addEventListener(
   "DOMContentLoaded",
   function() {
-    // e.preventDefault();
     const DOM = {
       // Getting the DOM elements
       myForm: document.getElementById("book-form"),
@@ -12,7 +11,7 @@ document.addEventListener(
       message: document.querySelector(".nothing-message")
     };
 
-    // Your API key down (Currently N.Colomatin API Key)
+    // The used API Key (Currently N.Colomatin API Key)
     var APIkey = `AIzaSyCoB6R2r7zWFZx_C50_OpL2lTvO0F2oMdI`;
 
     // Function that gets the results of the books
@@ -23,6 +22,7 @@ document.addEventListener(
       // Value of the input
       var searchValue = DOM.search.value;
 
+      // looks if there is a valid value in the input
       if (searchValue == "") {
         DOM.result.innerHTML = "Please put something in the search! 😃";
       } else {
@@ -45,56 +45,58 @@ document.addEventListener(
         // 4. This will be called after the response is received
         xhr.onload = function addItems(response) {
           let data = JSON.parse(this.response);
-          for (var i = 0; i < 11; i++) {
-            // DOM element of ALL books.
-            allBooks = document.querySelector(".all-books");
 
-            //Creates the elements for the Book-card
-            var divCard = document.createElement("div");
-            var imageCard = document.createElement("img");
-            var textCard = document.createElement("div");
-            var titleCard = document.createElement("h2");
-            var authorCard = document.createElement("p");
-            var urlCard = document.createElement("a");
+          if (!data) {
+            console.log("appel");
+          } else {
+            for (var i = 0; i < 11; i++) {
+              // DOM element of ALL books.
+              allBooks = document.querySelector(".all-books");
 
-            // Retreives the data from the API request
-            imageCard.src = data.items[i].volumeInfo.imageLinks.thumbnail;
-            var title = data.items[i].volumeInfo.title;
-            var author = data.items[i].volumeInfo.authors;
-            var url = data.items[i].volumeInfo.infoLink;
+              //Creates the elements for the Book-card
+              var divCard = document.createElement("div");
+              var imageCard = document.createElement("img");
+              var textCard = document.createElement("div");
+              var titleCard = document.createElement("h2");
+              var authorCard = document.createElement("p");
+              var urlCard = document.createElement("a");
 
-            // Changes the elements innerHTML into the data that was
-            // received from the API request
-            titleCard.innerHTML = `${title}`;
-            authorCard.innerHTML = `Written by: ${author}`;
-            imageCard.innerHTML = `${imageCard.src}`;
-            urlCard.innerHTML = `Search the Book`;
-            urlCard.setAttribute("href", url);
+              // Retreives the data from the API request
+              imageCard.src = data.items[i].volumeInfo.imageLinks.thumbnail;
+              var title = data.items[i].volumeInfo.title;
+              var author = data.items[i].volumeInfo.authors;
+              var url = data.items[i].volumeInfo.infoLink;
+              authorCard.innerHTML = `Written by: ${author}`;
+              imageCard.innerHTML = `${imageCard.src}`;
+              urlCard.innerHTML = `Search the Book`;
+              urlCard.setAttribute("href", url);
+              // Changes the elements innerHTML into the data that was
+              // received from the API request
+              titleCard.innerHTML = `${title}`;
 
-            //add CSS classes on the DOM elements.
-            divCard.classList.add("book-card");
-            textCard.classList.add("card-text");
-            urlCard.classList.add("btn");
+              //add CSS classes on the DOM elements.
+              divCard.classList.add("book-card");
+              textCard.classList.add("card-text");
+              urlCard.classList.add("btn");
 
-            // Appends the Title, Author, Image to the card.
-            textCard.appendChild(titleCard);
-            textCard.appendChild(authorCard);
-            textCard.appendChild(urlCard);
-            divCard.appendChild(imageCard);
-            divCard.appendChild(textCard);
+              // Appends the Title, Author, Image to the card.
+              textCard.appendChild(titleCard);
+              textCard.appendChild(authorCard);
+              textCard.appendChild(urlCard);
+              divCard.appendChild(imageCard);
+              divCard.appendChild(textCard);
 
-            allBooks.appendChild(divCard);
+              allBooks.appendChild(divCard);
+            }
           }
         };
       }
     }
 
+    // Refreshed the page books, so you can search for new ones.
     function refreshBooks() {
       allBooks.innerHTML = "";
     }
-
-    // document.removeChild(allBooks);
-    //no code yet..
 
     // When clicked on button, will fire the getResults function
     DOM.button.addEventListener("click", getResults);
