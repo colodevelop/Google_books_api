@@ -55,6 +55,11 @@ p {
   color: white;
 }
 
+.refresh {
+  margin-left: .5rem;
+  font-size: 1rem;
+}
+
 /* Search Bar TOP
 =================================== */
 
@@ -130,4 +135,11 @@ p {
   .book-card {
     max-width: 100%;
   }
+}
+
+/* Display
+==================== */
+
+.display-none {
+  display: none;
 }
