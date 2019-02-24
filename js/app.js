@@ -19,11 +19,12 @@ var APIkey = `AIzaSyCoB6R2r7zWFZx_C50_OpL2lTvO0F2oMdI`;
 document.getElementsByClassName("refresh")[0].addEventListener("click", refreshBooks);
 
 // Looks out for when enter is used on the keyboard
-window.addEventListener("keyup", function (e) {
-  if (e.keyCode === 13) {
+document.addEventListener("keypress", function (event) {
+  if (event.keyCode == 13) {
     getResults();
+    event.preventDefault();
   }
-});
+})
 
 // When clicked on button, will fire the getResults function
 document.getElementById("search-button").addEventListener("click", getResults);
@@ -37,7 +38,6 @@ function getResults() {
   if (document.getElementsByClassName("all-books")[0].innerHTML !== "") {
     refreshBooks();
   }
-
   // hides the standard message
   DOM.message.style.visibility = "hidden";
 
@@ -83,7 +83,7 @@ function getResults() {
           var authorCard = document.createElement("p");
           var urlCard = document.createElement("a");
 
-          // Retreives the data from the API request
+          // Retreives the data from the API request          
           imageCard.src = data.items[i].volumeInfo.imageLinks.thumbnail;
           var title = data.items[i].volumeInfo.title;
           var author = data.items[i].volumeInfo.authors;
