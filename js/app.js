@@ -1,5 +1,4 @@
-// ------------------------ VARIABLES
-
+// VARIABLES ======================================== //
 const DOM = {
   // Getting the DOM elements
   myForm: document.getElementById("book-form"),
@@ -13,31 +12,9 @@ const DOM = {
 // The used API Key (Currently N.Colomatin API Key)
 var APIkey = `AIzaSyCoB6R2r7zWFZx_C50_OpL2lTvO0F2oMdI`;
 
-// ------------------------ EVENT LISTENERS
-
-// When clicked on button, will delete the search results
-document.getElementsByClassName("refresh")[0].addEventListener("click", refreshBooks);
-
-// Looks out for when enter is used on the keyboard
-window.addEventListener("keyup", function (e) {
-  if (e.keyCode === 13) {
-    getResults();
-  }
-});
-
-// When clicked on button, will fire the getResults function
-document.getElementById("search-button").addEventListener("click", getResults);
-
-// --------------------------    FUNCTIONS
-
+//FUNCTIONS ========================================//
 // Function that gets the results of the books
 function getResults() {
-
-  //deletes the entries from previous searches if there are any
-  if (document.getElementsByClassName("all-books")[0].innerHTML !== "") {
-    refreshBooks();
-  }
-
   // hides the standard message
   DOM.message.style.visibility = "hidden";
 
@@ -65,13 +42,11 @@ function getResults() {
     xhr.send();
 
     // 4. This will be called after the response is received
-    xhr.onload = function addItems(response) {
+    xhr.onload = function addItems() {
       let data = JSON.parse(this.response);
 
-      if (!data) {
-        console.log("appel");
-      } else {
-        for (var i = 0; i < 11; i++) {
+      if (data) {
+        for (var i = 0; i < data.items.length; i++) {
           // DOM element of ALL books.
           allBooks = document.querySelector(".all-books");
 
@@ -88,13 +63,14 @@ function getResults() {
           var title = data.items[i].volumeInfo.title;
           var author = data.items[i].volumeInfo.authors;
           var url = data.items[i].volumeInfo.infoLink;
+
+          // Changes the elements innerHTML into the data that was
+          // received from the API request
+          titleCard.innerHTML = `${title}`;
           authorCard.innerHTML = `Written by: ${author}`;
           imageCard.innerHTML = `${imageCard.src}`;
           urlCard.innerHTML = `Search the Book`;
           urlCard.setAttribute("href", url);
-          // Changes the elements innerHTML into the data that was
-          // received from the API request
-          titleCard.innerHTML = `${title}`;
 
           //add CSS classes on the DOM elements.
           divCard.classList.add("book-card");
@@ -115,7 +91,19 @@ function getResults() {
   }
 }
 
+// EVENT LISTENERS ================================ //
 // Refreshed the page books, so you can search for new ones.
 function refreshBooks() {
   allBooks.innerHTML = "";
 }
+
+// When clicked on button, will fire the getResults function
+DOM.button.addEventListener("click", getResults);
+
+window.addEventListener("keyup", function(e) {
+  if (e.keyCode === 13) {
+    getResults();
+  }
+});
+
+DOM.refresh.addEventListener("click", refreshBooks);
